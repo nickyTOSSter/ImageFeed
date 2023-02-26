@@ -7,6 +7,13 @@ class ImageListViewController: UIViewController {
     private let currentDateFormatted = Date().formatted
     private let ShowSingleImageSegueIdentifier = "ShowSingleImage"
     
+    private lazy var dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .long
+        dateFormatter.timeStyle = .none
+        return dateFormatter
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
@@ -21,7 +28,7 @@ extension ImageListViewController {
         
         cell.cellImage.image = image
         cell.likeButton.setImage(getLikeButtonIcon(for: indexPath.row), for: .normal)
-        cell.dateLabel.text = currentDateFormatted
+        cell.dateLabel.text = dateFormatter.string(from: Date())
     }
     
     private func getLikeButtonIcon(for row: Int) -> UIImage? {
