@@ -5,6 +5,7 @@ class ImageListViewController: UIViewController {
     
     private let photosName: [String] = Array(0..<20).map {"\($0)"}
     private let currentDateFormatted = Date().formatted
+    private let ShowSingleImageSegueIdentifier = "ShowSingleImage"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +27,17 @@ extension ImageListViewController {
     private func getLikeButtonIcon(for row: Int) -> UIImage? {
         return UIImage(named: row.isMultiple(of: 2) ? "like_button_on" : "like_button_off")
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == ShowSingleImageSegueIdentifier {
+            let viewController = segue.destination as! SingleImageViewController
+            let indexPath = sender as! IndexPath
+            let image = UIImage(named: photosName[indexPath.row] + "_full_size")
+            viewController.image = image
+        } else {
+            super.prepare(for: segue, sender: sender)
+        }
+    }
 }
 
 extension ImageListViewController: UITableViewDataSource {
@@ -46,7 +58,7 @@ extension ImageListViewController: UITableViewDataSource {
 
 extension ImageListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        performSegue(withIdentifier: ShowSingleImageSegueIdentifier, sender: indexPath)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
