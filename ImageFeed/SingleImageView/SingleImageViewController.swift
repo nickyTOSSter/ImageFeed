@@ -2,10 +2,10 @@ import UIKit
 
 class SingleImageViewController: UIViewController {
 
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet private weak var scrollView: UIScrollView!
+    @IBOutlet private weak var imageView: UIImageView!
     
-    var image: UIImage! {
+    var image: UIImage? {
         didSet {
             if isViewLoaded {
                 imageView.image = image
@@ -23,12 +23,19 @@ class SingleImageViewController: UIViewController {
     }
     
     @IBAction func didTapShareButton(_ sender: UIButton) {
-        let activity = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        guard let imageToShare = image else {
+            return
+        }
         
+        let activity = UIActivityViewController(activityItems: [imageToShare], applicationActivities: nil)
         present(activity, animated: true)
     }
     
-    private func rescaleAndCenterImageInScrollView(image: UIImage) {
+    private func rescaleAndCenterImageInScrollView(image: UIImage?) {
+        guard  let image = image else {
+            return
+        }
+        
         let minZoomScale = scrollView.minimumZoomScale
         let maxZoomScale = scrollView.maximumZoomScale
         view.layoutIfNeeded()
@@ -42,6 +49,7 @@ class SingleImageViewController: UIViewController {
         let newContentSize = scrollView.contentSize
         let x = (newContentSize.width - visibleRectSize.width) / 2
         let y = (newContentSize.height - visibleRectSize.height) / 2
+        
         scrollView.setContentOffset(CGPoint(x: x, y: y), animated: false)
     }
     

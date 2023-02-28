@@ -4,7 +4,6 @@ class ImageListViewController: UIViewController {
     @IBOutlet private var tableView: UITableView!
     
     private let photosName: [String] = Array(0..<20).map {"\($0)"}
-    private let currentDateFormatted = Date().formatted
     private let ShowSingleImageSegueIdentifier = "ShowSingleImage"
     
     private lazy var dateFormatter: DateFormatter = {
@@ -39,10 +38,18 @@ extension ImageListViewController {
         if segue.identifier == ShowSingleImageSegueIdentifier {
             let viewController = segue.destination as! SingleImageViewController
             let indexPath = sender as! IndexPath
-            let image = UIImage(named: photosName[indexPath.row] + "_full_size")
-            viewController.image = image
+            viewController.image = getImageForSingleImageVC(at: indexPath.row)
         } else {
             super.prepare(for: segue, sender: sender)
+        }
+    }
+    
+    func getImageForSingleImageVC(at row: Int) -> UIImage? {
+        if let fullSizeImage = UIImage(named: photosName[row] + "_full_size") {
+            return fullSizeImage
+        } else {
+            let image = UIImage(named: photosName[row])
+            return image
         }
     }
 }

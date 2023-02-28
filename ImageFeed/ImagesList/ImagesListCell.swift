@@ -10,5 +10,5 @@ final class ImagesListCell: UITableViewCell {
     @IBAction func likeButtonPressed(sender: UIButton) {
         
     }
-    
+        
 }
