@@ -1,6 +1,6 @@
 import UIKit
 
-class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController {
     
     private var avatarImageView: UIImageView!
     private var logoutButton: UIButton!
