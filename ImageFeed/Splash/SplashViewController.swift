@@ -1,15 +1,11 @@
 import UIKit
 
-class SplashViewController: UIViewController {
+final class SplashViewController: UIViewController {
 
     private let authScreenIdentifier = "ShowAuthenticationScreenSegueIdentifier"
     private let tokenStorage = OAuth2TokenStorage()
     private let authService = OAuth2Service.shared
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
     
     override func viewDidAppear(_ animated: Bool) {
         if let _ = tokenStorage.token {

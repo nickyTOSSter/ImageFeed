@@ -1,14 +1,11 @@
 import UIKit
 import WebKit
 
-class AuthViewController: UIViewController {
+final class AuthViewController: UIViewController {
 
     private let webViewIdentifier = "ShowWebView"
     weak var delegate: AuthViewControllerDelegate?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == webViewIdentifier {
