@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "ImageListViewController.tableView(_:heightForRowAt:):ImageListViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "tableView.bounds">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ProfileViewController.viewDidLoad():ProfileViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "view.backgroundColor">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "WebViewViewController.code(from:):WebViewViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "urlComponents.path">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SingleImageViewController.rescaleAndCenterImageInScrollView(image:):SingleImageViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "scrollView.bounds.size">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SceneDelegate.scene(_:willConnectTo:options:):SceneDelegate.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "window?.rootViewController">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ProfileViewController.createImageView(with:):ProfileViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "imageView.frame.size">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ProfileImageService.object(for:completion:):ProfileImageService.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "try? decoder.decode(UserResult.self, from: data)">
+            </PersistentString>
+            <PersistentString
+               value = "try? JSONSerialization.jsonObject(with: data, options: [])">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
