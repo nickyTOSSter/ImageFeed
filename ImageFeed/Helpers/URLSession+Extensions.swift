@@ -34,7 +34,26 @@ extension URLSession {
                 fulfillCompletion(.failure(NetworkError.urlSessionError))
             }
         }
-        task.resume()
+        //task.resume()
         return task
+    }
+    
+    func objectTask<T: Decodable>(for request: URLRequest, completion: @escaping (Result<T, Error>) -> Void) -> URLSessionTask {
+        let task = data(for: request) { result in
+            switch result {
+            case .success(let data):
+                let decoder = JSONDecoder()
+                if let object = try? decoder.decode(T.self, from: data) {
+                    completion(.success(object))
+                } else {
+                    print("failed to convert data to object")
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+        
+        return task
+        
     }
 }
