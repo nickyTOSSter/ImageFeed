@@ -5,6 +5,7 @@ final class SplashViewController: UIViewController {
     private let authViewControllerStoryboardID = "AuthViewController"
     private let tokenStorage = OAuth2TokenStorage()
     private let authService = OAuth2Service.shared
+
     private let profileService = ProfileService.shared
     private let profileImageService = ProfileImageService.shared
 
