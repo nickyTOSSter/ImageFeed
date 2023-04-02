@@ -1,4 +1,3 @@
-
 import Foundation
 
 enum NetworkError: Error {
@@ -17,9 +16,8 @@ extension URLSession {
                 completion(result)
             }
         }
-        
+
         let task = dataTask(with: request) { data, response, error in
-            
             if let data = data,
                let response = response,
                let statusCode = (response as? HTTPURLResponse)?.statusCode {
@@ -34,11 +32,13 @@ extension URLSession {
                 fulfillCompletion(.failure(NetworkError.urlSessionError))
             }
         }
-        //task.resume()
         return task
     }
-    
-    func objectTask<T: Decodable>(for request: URLRequest, completion: @escaping (Result<T, Error>) -> Void) -> URLSessionTask {
+
+    func objectTask<T: Decodable>(
+        for request: URLRequest,
+        completion: @escaping (Result<T, Error>) -> Void
+    ) -> URLSessionTask {
         let task = data(for: request) { result in
             switch result {
             case .success(let data):
@@ -52,8 +52,6 @@ extension URLSession {
                 completion(.failure(error))
             }
         }
-        
         return task
-        
     }
 }
