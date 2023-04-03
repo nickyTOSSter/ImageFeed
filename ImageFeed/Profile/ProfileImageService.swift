@@ -34,7 +34,7 @@ final class ProfileImageService {
                         userInfo: ["url": self.avatarURL]
                     )
             case .failure:
-                print("failed to authorize")
+                assertionFailure("failed to authorize")
             }
         }
         self.task = task

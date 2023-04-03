@@ -22,7 +22,7 @@ final class SingleImageViewController: UIViewController {
         rescaleAndCenterImageInScrollView(image: image)
     }
 
-    @IBAction func didTapShareButton(_ sender: UIButton) {
+    @IBAction private func didTapShareButton(_ sender: UIButton) {
         guard let imageToShare = image else {
             return
         }
@@ -53,7 +53,7 @@ final class SingleImageViewController: UIViewController {
         scrollView.setContentOffset(CGPoint(x: xPoint, y: yPoint), animated: false)
     }
 
-    @IBAction func didTapBackButton(_ sender: UIButton) {
+    @IBAction private func didTapBackButton(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
 

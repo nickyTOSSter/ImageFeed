@@ -4,7 +4,7 @@ import WebKit
 final class WebViewViewController: UIViewController {
     @IBOutlet private var webView: WKWebView!
     @IBOutlet private var progressView: UIProgressView!
-
+    private var estimatedProgressObservation: NSKeyValueObservation?
     weak var delegate: WebViewViewControllerDelegate?
 
     override func viewDidLoad() {
@@ -23,7 +23,7 @@ final class WebViewViewController: UIViewController {
         let url = urlComponents.url!
         let request = URLRequest(url: url)
         webView.load(request)
-        _ = webView.observe(\.estimatedProgress) { [weak self] _, _ in
+        estimatedProgressObservation = webView.observe(\.estimatedProgress) { [weak self] _, _ in
             guard let self = self else { return }
             self.updateProgress()
         }
@@ -64,5 +64,9 @@ extension WebViewViewController: WKNavigationDelegate {
         } else {
             return nil
         }
+    }
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        progressView.isHidden = true
     }
 }

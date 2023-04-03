@@ -26,7 +26,7 @@ final class ProfileService {
                 self.profile = Profile(
                     username: profileResult.username,
                     name: "\(profileResult.firstName) \(profileResult.lastName)",
-                    bio: profileResult.bio
+                    bio: profileResult.bio ?? ""
                 )
                 completion(.success(self.profile!))
             case .failure(let error):

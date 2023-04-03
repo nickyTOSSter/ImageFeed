@@ -6,6 +6,10 @@ enum NetworkError: Error {
     case urlSessionError
 }
 
+enum DecodingDataError: Error {
+    case converData
+}
+
 extension URLSession {
     func data(
         for request: URLRequest,
@@ -46,7 +50,7 @@ extension URLSession {
                 if let object = try? decoder.decode(T.self, from: data) {
                     completion(.success(object))
                 } else {
-                    print("failed to convert data to object")
+                    completion(.failure(DecodingDataError.converData))
                 }
             case .failure(let error):
                 completion(.failure(error))
