@@ -1,10 +1,13 @@
-
 import Foundation
 
 enum NetworkError: Error {
     case httpStatusCode(Int)
     case urlRequestError(Error)
     case urlSessionError
+}
+
+enum DecodingDataError: Error {
+    case converData
 }
 
 extension URLSession {
@@ -17,9 +20,8 @@ extension URLSession {
                 completion(result)
             }
         }
-        
+
         let task = dataTask(with: request) { data, response, error in
-            
             if let data = data,
                let response = response,
                let statusCode = (response as? HTTPURLResponse)?.statusCode {
@@ -34,7 +36,26 @@ extension URLSession {
                 fulfillCompletion(.failure(NetworkError.urlSessionError))
             }
         }
-        task.resume()
+        return task
+    }
+
+    func objectTask<T: Decodable>(
+        for request: URLRequest,
+        completion: @escaping (Result<T, Error>) -> Void
+    ) -> URLSessionTask {
+        let task = data(for: request) { result in
+            switch result {
+            case .success(let data):
+                let decoder = JSONDecoder()
+                if let object = try? decoder.decode(T.self, from: data) {
+                    completion(.success(object))
+                } else {
+                    completion(.failure(DecodingDataError.converData))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
         return task
     }
 }
