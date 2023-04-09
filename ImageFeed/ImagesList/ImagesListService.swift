@@ -6,6 +6,7 @@ final class ImagesListService {
     static let DidChangeNotification = Notification.Name(rawValue: "ImagesListServiceDidChange")
     private var task: URLSessionTask?
     static let shared = ImagesListService()
+    private let dateFormatter = ISO8601DateFormatter()
 
     private init() { }
 
@@ -28,7 +29,7 @@ final class ImagesListService {
             case .success(let photosResult):
                 DispatchQueue.main.async {
                     let newPhotos = photosResult.map { photoResult in
-                        let photo = Photo(from: photoResult)
+                        let photo = Photo(from: photoResult, createdAt: self.dateFormatter.date(from: photoResult.createdAt ?? ""))
                         return photo
                     }
                     self.photos += newPhotos

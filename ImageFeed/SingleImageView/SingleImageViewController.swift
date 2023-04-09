@@ -14,7 +14,7 @@ final class SingleImageViewController: UIViewController {
 
     private func setImage() {
         UIBlockingProgressHUD.show()
-        imageView.kf.setImage(with: fullImageURL, placeholder: UIImage(named: "Stub")) { [weak self] result in
+        imageView.kf.setImage(with: fullImageURL) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let imageResult):

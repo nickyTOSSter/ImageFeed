@@ -38,6 +38,7 @@
 		4F88E21D29B4E230001233ED /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F88E21C29B4E230001233ED /* WebKit.framework */; };
 		4F88E21F29B4E73A001233ED /* WebViewViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F88E21E29B4E73A001233ED /* WebViewViewControllerDelegate.swift */; };
 		4FB2F49A29E2B63C00D8380D /* PhotoIsLikedResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB2F49929E2B63C00D8380D /* PhotoIsLikedResult.swift */; };
+		4FB2F49C29E31F7600D8380D /* ProgressHUD+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB2F49B29E31F7600D8380D /* ProgressHUD+Extensions.swift */; };
 		4FCA96BD29DDF0BD00A9F743 /* ImagesListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCA96BC29DDF0BD00A9F743 /* ImagesListService.swift */; };
 		4FCA96BF29DDF10000A9F743 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCA96BE29DDF10000A9F743 /* Photo.swift */; };
 		4FCA96C129DDF39500A9F743 /* PhotoResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCA96C029DDF39500A9F743 /* PhotoResult.swift */; };
@@ -76,6 +77,7 @@
 		4F88E21C29B4E230001233ED /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		4F88E21E29B4E73A001233ED /* WebViewViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewControllerDelegate.swift; sourceTree = "<group>"; };
 		4FB2F49929E2B63C00D8380D /* PhotoIsLikedResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoIsLikedResult.swift; sourceTree = "<group>"; };
+		4FB2F49B29E31F7600D8380D /* ProgressHUD+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProgressHUD+Extensions.swift"; sourceTree = "<group>"; };
 		4FCA96BC29DDF0BD00A9F743 /* ImagesListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListService.swift; sourceTree = "<group>"; };
 		4FCA96BE29DDF10000A9F743 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		4FCA96C029DDF39500A9F743 /* PhotoResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoResult.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 			children = (
 				4F20E13329BDC71000702E4E /* URLRequest+Extensions.swift */,
 				4F20E13529BDC86200702E4E /* URLSession+Extensions.swift */,
+				4FB2F49B29E31F7600D8380D /* ProgressHUD+Extensions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -335,6 +338,7 @@
 				4F20E13629BDC86200702E4E /* URLSession+Extensions.swift in Sources */,
 				4FCA96BF29DDF10000A9F743 /* Photo.swift in Sources */,
 				4F2038FE29BA79A300D2C3C5 /* OAuthTokenResponseBody.swift in Sources */,
+				4FB2F49C29E31F7600D8380D /* ProgressHUD+Extensions.swift in Sources */,
 				4F6DDBBD297EFDFF009908A1 /* ImagesListCell.swift in Sources */,
 				4F88E21829B4D2C5001233ED /* AuthViewController.swift in Sources */,
 				4F48A38529C8EA9A00653EA3 /* UserResult.swift in Sources */,

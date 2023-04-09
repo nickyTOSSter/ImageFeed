@@ -51,7 +51,7 @@ extension URLSession {
                     let object = try decoder.decode(T.self, from: data)
                     completion(.success(object))
                 } catch let error {
-                    print("\(error)")
+                    completion(.failure(error))
                 }
             case .failure(let error):
                 completion(.failure(error))

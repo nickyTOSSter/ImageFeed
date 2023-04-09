@@ -52,10 +52,13 @@ extension ImageListViewController {
         }
 
         let photo = photos[indexPath.row]
-        let photoCreatedAt = photo.createdAt ?? Date()
         cell.delegate = self
         cell.setIsLiked(photo.isLiked)
-        cell.dateLabel.text = dateFormatter.string(from: photoCreatedAt)
+        if let photoCreatedAt = photo.createdAt {
+            cell.dateLabel.text = dateFormatter.string(from: photoCreatedAt)
+        } else {
+            cell.dateLabel.text = ""
+        }
         cell.cellImage.kf.setImage(with: imageUrl, placeholder: UIImage(named: "Stub")) { [weak self] _ in
             guard let self = self else { return }
             self.tableView.reloadRows(at: [indexPath], with: .automatic)
