@@ -121,6 +121,24 @@ final class ProfileViewController: UIViewController {
     }
 
     @objc private func didTapLogoutButton() {
-        print("Logout")
+        let alert = UIAlertController(
+            title: "Пока, пока!",
+            message: "Уверены? что хзотите выйти?",
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "Нет", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Да", style: .default, handler: { _ in
+            self.logOut()
+        }))
+        present(alert, animated: true)
+    }
+
+    private func logOut() {
+        OAuth2Service.shared.logOut()
+        WebViewViewController.clean()
+        guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
+        window.rootViewController = SplashViewController()
+        window.makeKeyAndVisible()
+
     }
 }

@@ -20,7 +20,7 @@ final class SplashViewController: UIViewController {
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        if let token = tokenStorage.token {
+        if let token = tokenStorage.token, !token.isEmpty {
             fetchProfile(token)
         } else {
             presentViewController(with: authViewControllerStoryboardID)
