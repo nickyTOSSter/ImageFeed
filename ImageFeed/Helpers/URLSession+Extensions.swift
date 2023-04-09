@@ -47,10 +47,11 @@ extension URLSession {
             switch result {
             case .success(let data):
                 let decoder = JSONDecoder()
-                if let object = try? decoder.decode(T.self, from: data) {
+                do {
+                    let object = try decoder.decode(T.self, from: data)
                     completion(.success(object))
-                } else {
-                    completion(.failure(DecodingDataError.converData))
+                } catch let error {
+                    print("\(error)")
                 }
             case .failure(let error):
                 completion(.failure(error))

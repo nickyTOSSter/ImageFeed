@@ -121,6 +121,10 @@ final class ProfileViewController: UIViewController {
     }
 
     @objc private func didTapLogoutButton() {
-        print("Logout")
+        OAuth2Service.shared.logOut()
+        WebViewViewController.clean()
+        guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
+        window.rootViewController = SplashViewController()
+        window.makeKeyAndVisible()
     }
 }

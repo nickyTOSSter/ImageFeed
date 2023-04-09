@@ -43,6 +43,10 @@ final class OAuth2Service {
         self.task = task
         task.resume()
     }
+
+    func logOut() {
+        authToken = ""
+    }
 }
 
 extension OAuth2Service {
