@@ -6,13 +6,13 @@
          contextName = "closure #1 in NSURLSession.objectTask&lt;&#x3c4;_0_0&gt;(for:completion:):URLSession+Extensions.swift">
          <PersistentStrings>
             <PersistentString
-               value = "try? JSONSerialization.jsonObject(with: data, options: [])">
+               value = "T.self">
             </PersistentString>
             <PersistentString
                value = "decoder.decode([T].self, from: data)">
             </PersistentString>
             <PersistentString
-               value = "T.self">
+               value = "try? JSONSerialization.jsonObject(with: data, options: [])">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -35,6 +35,14 @@
          <PersistentStrings>
             <PersistentString
                value = "urlComponents.url">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ImageFeedUITests.testFeed():ImageFeedUITests.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "cellToLike.buttons[&quot;like button off&quot;]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -93,14 +101,6 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "SceneDelegate.scene(_:willConnectTo:options:):SceneDelegate.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "window?.rootViewController">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "closure #1 in ImagesListService.fetchPhotosNextPage():ImagesListService.swift">
          <PersistentStrings>
             <PersistentString
@@ -112,12 +112,23 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "SceneDelegate.scene(_:willConnectTo:options:):SceneDelegate.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "window?.rootViewController">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ImageListViewController.imageListCellDidTapLike(_:):ImageListViewController.swift">
          <PersistentStrings>
             <PersistentString
                value = "photo.id">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ImageFeedUITests.testAuth():ImageFeedUITests.swift">
       </ContextState>
       <ContextState
          contextName = "WebViewViewController.code(from:):WebViewViewController.swift">

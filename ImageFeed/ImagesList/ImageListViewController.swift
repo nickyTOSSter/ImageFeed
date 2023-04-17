@@ -2,22 +2,20 @@ import UIKit
 import Kingfisher
 import ProgressHUD
 
-final class ImageListViewController: UIViewController {
+final class ImageListViewController: UIViewController, ImageListViewControllerProtocol {
     @IBOutlet private var tableView: UITableView!
     private let showSingleImageSegueIdentifier = "ShowSingleImage"
     private var imageListServerObserver: NSObjectProtocol?
     private let imagesListService = ImagesListService.shared
     private var photos: [Photo] = []
 
-    private lazy var dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .long
-        dateFormatter.timeStyle = .none
-        return dateFormatter
-    }()
+    var presenter: ImageListViewPresenterProtocol?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter = ImageListViewPresenter()
+        presenter?.view = self
+
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
         imageListServerObserver = NotificationCenter.default.addObserver(
             forName: ImagesListService.DidChangeNotification,
@@ -54,11 +52,7 @@ extension ImageListViewController {
         let photo = photos[indexPath.row]
         cell.delegate = self
         cell.setIsLiked(photo.isLiked)
-        if let photoCreatedAt = photo.createdAt {
-            cell.dateLabel.text = dateFormatter.string(from: photoCreatedAt)
-        } else {
-            cell.dateLabel.text = ""
-        }
+        cell.dateLabel.text = presenter?.formattedDate(photo.createdAt)
         cell.cellImage.kf.setImage(with: imageUrl, placeholder: UIImage(named: "Stub")) { [weak self] _ in
             guard let self = self else { return }
             self.tableView.reloadRows(at: [indexPath], with: .automatic)
@@ -100,12 +94,15 @@ extension ImageListViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let image = photos[indexPath.row]
-        let imageInsets = UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
-        let imageViewWidth = tableView.bounds.width - imageInsets.left - imageInsets.right
-        let imageWidth = image.size.width
-        let scale = imageViewWidth / imageWidth
-        let cellHeight = image.size.height * scale + imageInsets.top + imageInsets.bottom
-        return cellHeight
+        if let height = presenter?.calculateRowHeight(
+            imageWidth: image.size.width,
+            imageHeight: image.size.height,
+            tableViewWidth: tableView.bounds.width
+        ) {
+            return height
+        } else {
+            return 0
+        }
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -119,7 +116,6 @@ extension ImageListViewController: ImagesListCellDelegate {
     func imageListCellDidTapLike(_ cell: ImagesListCell) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         let photo = photos[indexPath.row]
-        print("imageListCellDidTapLike photo will be \(!photo.isLiked)")
         UIBlockingProgressHUD.show()
         imagesListService.changeLike(photoId: photo.id, isLike: !photo.isLiked) { [weak self] result in
             guard let self = self else { return }
@@ -135,3 +131,9 @@ extension ImageListViewController: ImagesListCellDelegate {
         }
     }
 }
+
+protocol ImageListViewControllerProtocol: AnyObject {
+    var presenter: ImageListViewPresenterProtocol? { get set }
+}
+
+
