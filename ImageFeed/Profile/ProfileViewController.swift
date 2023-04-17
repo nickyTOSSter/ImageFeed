@@ -9,35 +9,17 @@ final class ProfileViewController: UIViewController {
     private var descriptionLabel: UILabel!
     private let profileService = ProfileService.shared
     private var profileImageServiceObserver: NSObjectProtocol?
+    var presenter: ProfilePresenterProtocol?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let boldFont = UIFont(name: "YSDisplay-Bold", size: 23)!
-        let regFont = UIFont(name: "YSDisplay-Medium", size: 13)!
-        let ypGrayColor = UIColor(named: "ypGray")!
-
+        presenter = ProfilePresenter()
+        presenter?.view = self
+        
         view.backgroundColor = UIColor(named: "ypBlack")
-
-        avatarImageView = createImageView(with: UIImage(named: "Photo"))
-        view.addSubview(avatarImageView)
-
-        logoutButton = createButton(
-            image: UIImage(named: "ipad.and.arrow.forward"),
-            action: #selector(didTapLogoutButton)
-        )
-        view.addSubview(logoutButton)
-
-        nameLabel = createLabel(text: "Екатерина Новикова", textColor: .white, font: boldFont)
-        view.addSubview(nameLabel)
-
-        loginNameLabel = createLabel(text: "@ekaterina_nov", textColor: ypGrayColor, font: regFont)
-        view.addSubview(loginNameLabel)
-
-        descriptionLabel = createLabel(text: "Hello, world!", textColor: .white, font: regFont)
-        view.addSubview(descriptionLabel)
-
+        createSubviews()
         configureConstraits()
+
         updateProfileDetails(profile: profileService.profile)
         profileImageServiceObserver = NotificationCenter.default
             .addObserver(
@@ -62,6 +44,56 @@ final class ProfileViewController: UIViewController {
         )
     }
 
+    private func updateProfileDetails(profile: Profile?) {
+        guard let profile = profile else { return }
+        nameLabel.text = profile.username
+        loginNameLabel.text = profile.loginName
+        descriptionLabel.text = profile.bio
+    }
+
+    @objc private func didTapLogoutButton() {
+        let alert = UIAlertController(
+            title: "Пока, пока!",
+            message: "Уверены? что хотите выйти?",
+            preferredStyle: .alert
+
+        )
+        alert.addAction(UIAlertAction(title: "Нет", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Да", style: .default, handler: { _ in
+            self.presenter?.logOut()
+        }))
+        present(alert, animated: true)
+    }
+
+}
+
+// MARK: - Subview configuration
+extension ProfileViewController {
+    private func createSubviews() {
+        let boldFont = UIFont(name: "YSDisplay-Bold", size: 23)!
+        let regFont = UIFont(name: "YSDisplay-Medium", size: 13)!
+        let ypGrayColor = UIColor(named: "ypGray")!
+
+        avatarImageView = createImageView(with: UIImage(named: "Photo"))
+        view.addSubview(avatarImageView)
+
+        logoutButton = createButton(
+            image: UIImage(named: "ipad.and.arrow.forward"),
+            action: #selector(didTapLogoutButton),
+            accessibilityIdentifier: "logoutButton"
+        )
+        view.addSubview(logoutButton)
+
+        nameLabel = createLabel(text: "Екатерина Новикова", textColor: .white, font: boldFont)
+        view.addSubview(nameLabel)
+
+        loginNameLabel = createLabel(text: "@ekaterina_nov", textColor: ypGrayColor, font: regFont)
+        view.addSubview(loginNameLabel)
+
+        descriptionLabel = createLabel(text: "Hello, world!", textColor: .white, font: regFont)
+        view.addSubview(descriptionLabel)
+    }
+
     private func createImageView(with image: UIImage?) -> UIImageView {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -72,11 +104,12 @@ final class ProfileViewController: UIViewController {
         return imageView
     }
 
-    private func createButton(image: UIImage?, action: Selector) -> UIButton {
+    private func createButton(image: UIImage?, action: Selector, accessibilityIdentifier: String) -> UIButton {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(image, for: .normal)
         button.addTarget(self, action: action, for: .touchUpInside)
+        button.accessibilityIdentifier = accessibilityIdentifier
         return button
     }
 
@@ -110,35 +143,14 @@ final class ProfileViewController: UIViewController {
             descriptionLabel.leadingAnchor.constraint(equalTo: avatarImageView.leadingAnchor),
             descriptionLabel.topAnchor.constraint(equalTo: loginNameLabel.bottomAnchor, constant: 8)
         ])
-
     }
 
-    private func updateProfileDetails(profile: Profile?) {
-        guard let profile = profile else { return }
-        nameLabel.text = profile.username
-        loginNameLabel.text = profile.loginName
-        descriptionLabel.text = profile.bio
-    }
+}
 
-    @objc private func didTapLogoutButton() {
-        let alert = UIAlertController(
-            title: "Пока, пока!",
-            message: "Уверены? что хзотите выйти?",
-            preferredStyle: .alert
-        )
-        alert.addAction(UIAlertAction(title: "Нет", style: .cancel))
-        alert.addAction(UIAlertAction(title: "Да", style: .default, handler: { _ in
-            self.logOut()
-        }))
-        present(alert, animated: true)
-    }
-
-    private func logOut() {
-        OAuth2Service.shared.logOut()
-        WebViewViewController.clean()
-        guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
+extension ProfileViewController: ProfileViewControllerProtocol {
+    func userLoggedOut() {
+        guard let window = UIApplication.shared.windows.first else { return }
         window.rootViewController = SplashViewController()
         window.makeKeyAndVisible()
-
     }
 }
